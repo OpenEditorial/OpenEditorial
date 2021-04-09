@@ -1,0 +1,38 @@
+﻿@{ 
+    var site = await WebApp.Api.Sites.GetDefaultAsync();
+    var siteContent = await WebApp.Site.GetContentAsync<OpenEditorial.Models.JournalSite>();
+}
+
+<div class="container">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary mt-1 mb-1">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                @*<li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>*@
+                @foreach (var item in WebApp.Site.Sitemap)
+                {
+                    if (!item.IsHidden)
+                    {
+                        <li class="nav-item @(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? "active" : "")">
+                            <a class="nav-link" href="@item.Permalink">@item.MenuTitle</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </nav>
+</div>

@@ -1,0 +1,23 @@
+﻿@{
+    var site = await WebApp.Api.Sites.GetDefaultAsync();
+    var siteContent = await WebApp.Site.GetContentAsync<OpenEditorial.Models.JournalSite>();
+}
+
+@if (WebApp.Site.Sitemap.GetBreadcrumb(WebApp.PageId).Count() > 1)
+{
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white border-white">
+            @foreach (var item in WebApp.Site.Sitemap.GetBreadcrumb(WebApp.PageId))
+            {
+                if (item.OriginalPageId == WebApp.PageId)
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@item.MenuTitle</li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item"><a href="@Url.Content(item.Permalink)">@item.MenuTitle</a></li>
+                }
+            }
+        </ol>
+    </div>
+}

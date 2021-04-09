@@ -1,0 +1,13 @@
+﻿@model OpenEditorial.Models.Pages.StandardPage
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<partial name="/Views/Shared/Partial/_Breadcrumps.cshtml" />
+
+<h1>@Model.Title</h1>
+<hr class="bg-primary"/>
+
+<div class="block">
+    @Html.Raw(Model.Body)
+</div> 

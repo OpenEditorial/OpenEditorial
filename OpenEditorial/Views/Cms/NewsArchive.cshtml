@@ -1,0 +1,21 @@
+﻿@model OpenEditorial.Models.Pages.NewsArchive
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<partial name="/Views/Shared/Partial/_Breadcrumps.cshtml" />
+
+<h1>@Model.Title</h1>
+<hr class="bg-primary" />
+
+@foreach (var news in Model.Archive.Posts)
+{
+<div>
+    <p class="text-muted float-right">@news.Published.Value.ToShortDateString()</p>
+    <p class="h5 text-primary">
+        <a href="~/@(WebApp.Site.Culture)/news/@(news.Id)">@news.Title</a>
+    </p>
+    <p><small>@Html.Raw(news.Abstract)</small></p>
+</div>
+    <hr />
+}

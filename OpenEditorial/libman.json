@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "jsdelivr",
+      "library": "bootstrap@4.6.0",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.bundle.min.js",
+        "dist/js/bootstrap.min.js"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "@popperjs/core@2.9.2",
+      "destination": "wwwroot/lib/popperjs/core/"
+    }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "font-awesome@5.15.3",
+  "destination": "wwwroot/lib/font-awesome/"
+}
+]
+}
