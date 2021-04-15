@@ -10,7 +10,8 @@ using Piranha.Models;
 namespace OpenEditorial.Models.Pages
 {
     [PostType(Title = "Книга", UseBlocks = false)]
-    public class BookPost : Post<BookPost>
+    [ContentTypeRoute(Title = "bookspost", Route = "/bookspost")]
+    public class BooksPost : Post<BooksPost>
     {
         public class BookRegion
         {
@@ -33,7 +34,7 @@ namespace OpenEditorial.Models.Pages
             public StringField BuyUrl { get; set; }
 
             [Field(Title = "Полнотекстовый файл")]
-            public MediaField FullTextFile { get; set; }
+            public DocumentField FullTextFile { get; set; }
         }
 
         [Region]

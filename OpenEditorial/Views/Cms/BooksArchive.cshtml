@@ -1,0 +1,37 @@
+﻿@model OpenEditorial.Models.Pages.BooksArchive
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<partial name="Partial/_PageHeader.cshtml" />
+
+@foreach (var book in Model.Archive.Posts)
+{
+    <div class="row">
+        <div class="col-2">
+            <img src="@Url.Content(book.Book.Image.Media.PublicUrl)" class="w-100" />
+        </div>
+        <div class="col-10">
+            <h5>@book.Title</h5>
+            <p><small>@Html.Raw(book.Book.Citing)</small></p>
+            @foreach (var tag in book.Tags)
+            { 
+                <span class="badge badge-info">@tag.Title</span>
+            }
+            <p>@Html.Raw(book.Book.Abstract)</p>
+            @if (book.Book.FullTextFile.HasValue)
+            {
+                <a class="btn btn-info my-2 my-sm-0" href="@Url.Content(book.Book.FullTextFile.Media.PublicUrl)">
+                    <i class="fas fa-file-download"></i> Скачать
+                </a>
+            }
+            @if (!String.IsNullOrWhiteSpace(book.Book.BuyUrl.Value))
+            {
+                <a class="btn btn-info my-2 my-sm-0" href="@Url.Content(book.Book.BuyUrl)">
+                    <i class="fas fa-shopping-cart"></i> Купить
+                </a>
+            }
+        </div>
+    </div>
+    <hr />
+}

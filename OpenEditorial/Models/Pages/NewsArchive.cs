@@ -10,7 +10,7 @@ namespace OpenEditorial.Models.Pages
 {
     [PageType(Title = "Архив новостей", UseBlocks = false, IsArchive = true)]
     [PageTypeArchiveItem(typeof(NewsPost))]
-    [ContentTypeRoute(Title = "news", Route = "/news")]
+    [ContentTypeRoute(Title = "newsarchive", Route = "/newsarchive")]
     public class NewsArchive : Page<NewsArchive>
     {
         /// <summary>

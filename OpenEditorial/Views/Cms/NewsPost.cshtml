@@ -1,0 +1,18 @@
+﻿@model OpenEditorial.Models.Pages.NewsPost
+@{
+    ViewBag.Title = Model.Title;
+}
+
+
+<partial name="Partial/_PageHeader.cshtml" />
+
+<h4 class="text-primary">@Model.Title</h4>
+<p>@Html.Raw(Model.Abstract)</p>
+<div>
+    @Html.DisplayFor(m => m.Blocks)
+</div>
+
+<div>
+    <script src="https://yastatic.net/share2/share.js"></script>
+    <div class="ya-share2" data-curtain data-color-scheme="blackwhite" data-services="vkontakte,facebook,odnoklassniki,telegram,twitter,viber,whatsapp"></div>
+</div>

@@ -44,7 +44,20 @@ namespace OpenEditorial.Controllers
         /// </summary>
         /// <param name="id">The unique page id</param>
         [HttpGet]
-        [Route("news")]
+        [Route("newspost")]
+        public async Task<IActionResult> NewsPost(Guid id, bool draft = false)
+        {
+            var model = await _loader.GetPostAsync<Models.Pages.NewsPost>(id, HttpContext.User, draft);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Gets the page with the given id.
+        /// </summary>
+        /// <param name="id">The unique page id</param>
+        [HttpGet]
+        [Route("newsarchive")]
         public async Task<IActionResult> NewsArchive(Guid id, bool draft = false)
         {
             var model = await _loader.GetPageAsync<Models.Pages.NewsArchive>(id, HttpContext.User, draft);
@@ -62,9 +75,53 @@ namespace OpenEditorial.Controllers
         public async Task<IActionResult> Folder(Guid id, bool draft = false)
         {
             var model = await _loader.GetPageAsync<Models.Pages.FolderPage>(id, HttpContext.User, draft);
-            return Redirect(model.DefaultPage.Page.Permalink);
+            if (model.DefaultPage.HasValue)
+                return Redirect(model.DefaultPage.Page.Permalink);
+            else
+            {
+                var startPage = await _api.Pages.GetStartpageAsync();
+                return Redirect(startPage.Permalink);
+            }
+        }
 
-            //return View(model);
+        /// <summary>
+        /// Gets the page with the given id.
+        /// </summary>
+        /// <param name="id">The unique page id</param>
+        [HttpGet]
+        [Route("booksarchive")]
+        public async Task<IActionResult> BooksArchive(Guid id, bool draft = false)
+        {
+            var model = await _loader.GetPageAsync<Models.Pages.BooksArchive>(id, HttpContext.User, draft);
+            model.Archive = await _api.Archives.GetByIdAsync<Models.Pages.BooksPost>(model.Id);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Gets the page with the given id.
+        /// </summary>
+        /// <param name="id">The unique page id</param>
+        [HttpGet]
+        [Route("bookspost")]
+        public async Task<IActionResult> BooksPost(Guid id, bool draft = false)
+        {
+            var model = await _loader.GetPostAsync<Models.Pages.BooksPost>(id, HttpContext.User, draft);
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Gets the page with the given id.
+        /// </summary>
+        /// <param name="id">The unique page id</param>
+        [HttpGet]
+        [Route("editorialboard")]
+        public async Task<IActionResult> EditorialBoard(Guid id, bool draft = false)
+        {
+            var model = await _loader.GetPageAsync<Models.Pages.EditorialBoardPage>(id, HttpContext.User, draft);
+
+            return View(model);
         }
     }
 }

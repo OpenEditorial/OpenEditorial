@@ -1,0 +1,29 @@
+﻿@model OpenEditorial.Models.Pages.EditorialBoardPage
+@{
+    ViewBag.Title = Model.Title;
+    string currentTitle = "";
+}
+
+<partial name="Partial/_PageHeader.cshtml" />
+
+<div class="block">
+    <ul class="list-group list-group-flush">
+        @foreach (var member in Model.Members)
+        {
+            <li class="list-group-item">
+                @if (member.Title.Value.GetDisplayName() != currentTitle)
+                {
+                    currentTitle = member.Title.Value.GetGroupName();
+                    @:<h4 class="text-primary">@currentTitle</h4>
+                }
+                <div class="d-flex">
+                    <img class="rounded" width="60" height="60" src="@Url.Content(member.Image.Media.PublicUrl)" />
+                    <div class="pl-3">
+                        <h5>@(member.FullName)</h5>
+                        <small>@(member.About)</small>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

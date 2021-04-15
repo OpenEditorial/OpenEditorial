@@ -10,6 +10,7 @@ using Piranha.Models;
 namespace OpenEditorial.Models.Pages
 {
     [PostType(Title = "Новость")]
+    [ContentTypeRoute(Title = "Default", Route = "/newspost")]
     public class NewsPost : Post<NewsPost>
     {
         [Region(Title = "Аннотация")]

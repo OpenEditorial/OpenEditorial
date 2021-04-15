@@ -1,0 +1,32 @@
+﻿@{
+    var site = await WebApp.Api.Sites.GetDefaultAsync();
+    var siteContent = await WebApp.Site.GetContentAsync<OpenEditorial.Models.JournalSite>();
+}
+
+<div class="pb-3 pt-1">
+    @if (WebApp.Site.Sitemap.GetBreadcrumb(WebApp.PageId).FirstOrDefault(x => x.Id == WebApp.PageId).Level != 1)
+    {
+        <partial name="/Views/Shared/Partial/_Breadcrumps.cshtml" />
+        <h1>@WebApp.CurrentPage.Title</h1>
+        <hr class="bg-primary" />
+    }
+    else
+    {
+        @foreach (var topMenu in WebApp.Site.Sitemap)
+        {
+            if (topMenu.HasChild(WebApp.PageId) || topMenu.Id == WebApp.PageId)
+            {
+                <h1>@topMenu.Title</h1>
+
+                <ul class="nav nav-pills nav-pills-under">
+                    @foreach (var item in topMenu.Items)
+                    {
+                        <li class="nav-item @(item.Id == WebApp.PageId ? "active" : "") ">
+                            <a class="nav-link" href="@item.Permalink">@item.NavigationTitle</a>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+    }
+</div>

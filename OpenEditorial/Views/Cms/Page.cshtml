@@ -3,10 +3,7 @@
     ViewBag.Title = Model.Title;
 }
 
-<partial name="/Views/Shared/Partial/_Breadcrumps.cshtml" />
-
-<h1>@Model.Title</h1>
-<hr class="bg-primary"/>
+<partial name="Partial/_PageHeader.cshtml" />
 
 <div class="block">
     @Html.Raw(Model.Body)

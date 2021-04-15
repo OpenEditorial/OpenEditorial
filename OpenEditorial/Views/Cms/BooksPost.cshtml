@@ -1,0 +1,17 @@
+﻿@model OpenEditorial.Models.Pages.BooksPost
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<partial name="Partial/_PageHeader.cshtml" />
+
+@*foreach (var book in Model.Archive.Posts)
+{
+    <div>
+        <p class="h5 text-primary">
+            <a href="~/@(WebApp.Site.Culture)/library/@(book.Id)">@book.Title</a>
+        </p>
+        <p><small>@Html.Raw(book.Book.Abstract)</small></p>
+    </div>
+    <hr />
+}*@

@@ -6,9 +6,13 @@
     <title>@ViewData["Title"] - OpenEditorial</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/lib/bootstrap/themes/simplex.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
+    <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/solid.min.css" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald">
+
 </head>
 <body>
     <header>
@@ -21,10 +25,15 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - OpenEditorial - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer> @*class="border-top footer text-muted">*@
+        
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+            <div class="container">
+                <div>
+                    &copy; 2021 - OpenEditorial@* - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+                </div>
+            </div>
+        </nav>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/popperjs/core/lib/popper.min.js"></script>
