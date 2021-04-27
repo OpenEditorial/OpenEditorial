@@ -15,7 +15,7 @@
             <h5>@book.Title</h5>
             <p><small>@Html.Raw(book.Book.Citing)</small></p>
             @foreach (var tag in book.Tags)
-            { 
+            {
                 <span class="badge badge-info">@tag.Title</span>
             }
             <p>@Html.Raw(book.Book.Abstract)</p>
@@ -29,6 +29,12 @@
             {
                 <a class="btn btn-info my-2 my-sm-0" href="@Url.Content(book.Book.BuyUrl)">
                     <i class="fas fa-shopping-cart"></i> Купить
+                </a>
+            }
+            @if (!String.IsNullOrWhiteSpace(book.Book.Email))
+            {
+                <a class="btn btn-info my-2 my-sm-0" href="mailto:@Url.Content(book.Book.Email)">
+                    <i class="fas fa-envelope"></i> Связаться с автором
                 </a>
             }
         </div>

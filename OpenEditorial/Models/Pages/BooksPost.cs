@@ -33,6 +33,9 @@ namespace OpenEditorial.Models.Pages
             [Field(Title = "Внешняя ссылка")]
             public StringField BuyUrl { get; set; }
 
+            [Field(Title = "Связь с автором (email)")]
+            public StringField Email { get; set; }
+
             [Field(Title = "Полнотекстовый файл")]
             public DocumentField FullTextFile { get; set; }
         }

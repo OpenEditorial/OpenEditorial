@@ -17,16 +17,16 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>*@
-                @foreach (var item in WebApp.Site.Sitemap)
+                @foreach (var item in WebApp.Site.Sitemap.Where(m => !m.IsHidden | m.Items.Any(i => !i.IsHidden)))
                 {
                     if (!item.IsHidden)
                     {
                         <li class="nav-item @(item.Id == WebApp.PageId || item.HasChild(WebApp.PageId) ? "active" : "") @(item.Items.Any() ? "dropdown" : "")">
-                            @if (item.Items.Any())
+                            @if (item.Items.Any(i => !i.IsHidden))
                             {
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">@item.MenuTitle</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    @foreach (var subItem in item.Items)
+                                    @foreach (var subItem in item.Items.Where(i => !i.IsHidden))
                                     { 
                                         <a class="dropdown-item" href="@subItem.Permalink">@subItem.MenuTitle</a>
                                     }

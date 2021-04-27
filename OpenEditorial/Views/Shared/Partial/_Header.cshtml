@@ -34,7 +34,11 @@
         <div class="ml-auto mr-1">
             @if (!String.IsNullOrWhiteSpace(siteContent.Info.ISSN.Value))
             {
-                <div>ISSN: @siteContent.Info.ISSN</div>
+                <div>ISSN (Print): @siteContent.Info.ISSN</div>
+            }
+            @if (!String.IsNullOrWhiteSpace(siteContent.Info.ISSNOnline.Value))
+            {
+                <div>ISSN (Online): @siteContent.Info.ISSN</div>
             }
             <div>
                 <a href="~/manager">Войти</a>

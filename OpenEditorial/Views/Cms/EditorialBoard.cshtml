@@ -17,7 +17,10 @@
                     @:<h4 class="text-primary">@currentTitle</h4>
                 }
                 <div class="d-flex">
-                    <img class="rounded" width="60" height="60" src="@Url.Content(member.Image.Media.PublicUrl)" />
+                    @if (member.Image.HasValue)
+                    {
+                        <img class="rounded" width="60" height="60" src="@Url.Content(member.Image.Media.PublicUrl)" />
+                    }
                     <div class="pl-3">
                         <h5>@(member.FullName)</h5>
                         <small>@(member.About)</small>

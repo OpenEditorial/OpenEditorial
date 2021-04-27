@@ -7,8 +7,7 @@
     @if (WebApp.Site.Sitemap.GetBreadcrumb(WebApp.PageId).FirstOrDefault(x => x.Id == WebApp.PageId).Level != 1)
     {
         <partial name="/Views/Shared/Partial/_Breadcrumps.cshtml" />
-        <h1>@WebApp.CurrentPage.Title</h1>
-        <hr class="bg-primary" />
+        <partial name="_PageTitle.cshtml" model="@WebApp.CurrentPage.Title" />
     }
     else
     {

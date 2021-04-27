@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Piranha;
 using Piranha.AttributeBuilder;
 using Piranha.Data.EF.SQLite;
+using Piranha.Data.EF.SQLServer;
+using OpenEditorial.Services;
 
 namespace OpenEditorial
 {
@@ -43,18 +45,58 @@ namespace OpenEditorial
                 options.UseImageSharp();
                 options.UseManager();
                 options.UseTinyMCE();
-                options.UseMemoryCache();
-                options.UseEF<SQLiteDb>(db =>
-                    db.UseSqlite("Filename=./PiranhaWeb.db"));
+                //options.UseMemoryCache();
+                if (Env.IsDevelopment())
+                {
+                    options.UseEF<SQLiteDb>(db =>
+                        db.UseSqlite(Configuration.GetConnectionString("CMSConnectionString")));
+                }
+                else
+                {
+                    options.UseEF<SQLServerDb>(db =>
+                        db.UseSqlServer(Configuration.GetConnectionString("CMSConnectionString")));
+                }
             });
 
             services.AddPiranhaSimpleSecurity(
                 new Piranha.AspNetCore.SimpleUser(Piranha.Manager.Permission.All())
                 {
                     UserName = "admin",
+                    Password = "demopass"
+                },
+                new Piranha.AspNetCore.SimpleUser(Piranha.Manager.Permission.All())
+                { 
+                    UserName = "demo",
+                    Password = "password"
+                },
+                new Piranha.AspNetCore.SimpleUser(new string[] { 
+                    Piranha.Manager.Permission.Admin, 
+                    Piranha.Manager.Permission.Comments,
+                    Piranha.Manager.Permission.Content,
+                    Piranha.Manager.Permission.ContentEdit,
+                    Piranha.Manager.Permission.Media,
+                    Piranha.Manager.Permission.Pages,
+                    //Piranha.Manager.Permission.PagesAdd,
+                    Piranha.Manager.Permission.PagesEdit,
+                    Piranha.Manager.Permission.PagesPublish,
+                    Piranha.Manager.Permission.PagesSave,
+                    Piranha.Manager.Permission.Posts,
+                    Piranha.Manager.Permission.PostsAdd,
+                    Piranha.Manager.Permission.PostsDelete,
+                    Piranha.Manager.Permission.PostsEdit,
+                    Piranha.Manager.Permission.PostsPublish,
+                    Piranha.Manager.Permission.PostsSave,
+                    Piranha.Manager.Permission.SitesEdit,
+                    Piranha.Manager.Permission.SitesSave
+
+                })
+                {
+                    UserName = "demo2",
                     Password = "password"
                 }
             );
+
+            services.AddScoped<IUI, UI>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,10 +112,11 @@ namespace OpenEditorial
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            //app.UseRouting();
+            app.UseRouting();
 
             //app.UseAuthorization();
 
@@ -89,12 +132,15 @@ namespace OpenEditorial
                 .AddAssembly(typeof(Startup).Assembly)
                 .Build()
                 .DeleteOrphans();
+            App.Hooks.OnGenerateSlug += (str) => { return OpenEditorial.Utils.SlugHook.OnGenerateSlug(str); };
 
             app.UsePiranha(options => {
                 options.UseManager();
                 options.UseTinyMCE();
                 //options.UseIdentity();
             });
+
+            App.Modules.Manager().Styles.Add("~/css/manager.css");
         }
     }
 }

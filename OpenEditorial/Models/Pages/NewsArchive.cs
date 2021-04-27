@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Piranha.AttributeBuilder;
 using Piranha.Extend;
 using Piranha.Models;
+using Piranha.Extend.Fields;
 
 namespace OpenEditorial.Models.Pages
 {

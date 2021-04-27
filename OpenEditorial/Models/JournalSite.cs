@@ -17,8 +17,11 @@ namespace OpenEditorial.Models
             [Field(Title = "Название")]
             public StringField Title { get; set; }
 
-            [Field(Title = "ISSN")]
+            [Field(Title = "ISSN (Print)")]
             public StringField ISSN { get; set; }
+
+            [Field(Title = "ISSN (Online)")]
+            public StringField ISSNOnline { get; set; }
         }
 
         [Region(Title = "Журнал")]
